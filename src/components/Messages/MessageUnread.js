@@ -8,7 +8,7 @@ const MessageUndread = (props) => {
         <div className="col-xs-1">
           <div className="row">
             <div className="col-xs-2">
-              <input type="checkbox" onClick={props.checkboxClick} />
+              <input type="checkbox" onClick={props.checkboxClick} id={props.id}/>
             </div>
             <div className="col-xs-2">
               <i className="star fa fa-star-o"></i>

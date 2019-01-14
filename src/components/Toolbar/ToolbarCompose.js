@@ -1,10 +1,12 @@
 import React from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.min.css'
 
 const ToolbarCompose = (props) => {
   const unreadCount = (props.messages.filter(item => !item.read)).length
 
   return (
-    <div className="ToolbarCompose">
+    <div className="ToolbarCompose container">
       <div className="row toolbar">
         <div className="col-md-12">
           <p className="pull-right">

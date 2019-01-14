@@ -28,19 +28,33 @@ class App extends Component {
   componentDidMount = async () => {
     const response = await fetch('http://localhost:8082/api/messages')
     const json = await response.json()
+    // console.log(json.map(item => item.selected))
     this.setState({ messages: json })
+    console.log(this.state)
   }
 
   messageClick = (event) => {
+    const newState = { ...this.state }
     const messageID = parseInt(event.target.id)
     const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
-    console.log(this.state.messages)
-    // update read state to true, render as read message
-    // return expanded view -> update state to return expanded view
+    findMessage.read = true
+    this.setState({ state: newState })
+  }
+
+  markAsRead = (event) => {
+    console.log(event.target.checked)
+  }
+
+  markAsUnead = (event) => {
+    
   }
 
   checkboxClick = (event) => {
-    // event.target.checked ? "" : ""
+    const newState = { ...this.state }
+    const messageID = parseInt(event.target.id)
+    const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
+    findMessage.selected = true
+    this.setState({ state: newState })
   }
 
 
@@ -53,9 +67,9 @@ class App extends Component {
             <MessageList
               messages={this.state.messages}
               messageClick={this.messageClick}
-              checkboxClick={this.checkboxClick} />
-            {/* messageClick() ? 
-              <MessageExpanded /> : "" */}
+              checkboxClick={this.checkboxClick}
+              markAsRead={this.markAsRead} 
+              markAsUnread={this.markAsUnread} />
           </React.Fragment> :
           <Loading />
         }

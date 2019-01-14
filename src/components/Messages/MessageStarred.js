@@ -15,11 +15,7 @@ const Compose = (props) => {
                     </div>
                     </div>
                 </div>
-                <div className="col-xs-11">
-                    <a href="#">
-                    Here is some message text that has a bunch of stuff
-                    </a>
-                </div>
+               <div className="col-xs-11" onClick={props.messageClick}><a key={props.id} id={props.id} href="#">{props.subject}</a></div>
             </div>
         </div>
   )
