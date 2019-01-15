@@ -26,58 +26,71 @@ class App extends Component {
     this.setState({ messages: json })
   }
 
-  messageClick = (event) => {
-    const newState = { ...this.state }
-    const messageID = parseInt(event.target.id)
-    const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
-    findMessage.read = true
-    this.setState({ state: newState })
-  }
+  // updateServer = aysnc() => {
+  // await fetch('http://localhost:8082/api/messages', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify({
+  //     firstParam: this.state,
+  //     })
+  //   })
+  // }
 
-  markAsRead = (event) => {
-    console.log(event.target.checked)
-  }
+messageClick = (event) => {
+  const newState = { ...this.state }
+  const messageID = parseInt(event.target.id)
+  const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
+  findMessage.read = true
+  this.setState({ state: newState })
+}
 
-  markAsUnead = (event) => {
+markAsRead = (event) => {
+  console.log(event.target.checked)
+}
 
-  }
+markAsUnead = (event) => {
 
-  checkboxClick = (event) => {
-    const newState = { ...this.state }
-    const messageID = parseInt(event.target.id)
-    const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
-    findMessage.selected = !findMessage.selected
-    this.setState({ state: newState })
-  }
+}
 
-  starMessage = (event) => {
-    const newState = { ...this.state }
-    const messageID = parseInt(event.target.id)
-    const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
-    findMessage.starred = !findMessage.starred
-    this.setState({ state: newState })
-  }
+checkboxClick = (event) => {
+  const newState = { ...this.state }
+  const messageID = parseInt(event.target.id)
+  const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
+  findMessage.selected = !findMessage.selected
+  this.setState({ state: newState })
+}
+
+starMessage = (event) => {
+  const newState = { ...this.state }
+  const messageID = parseInt(event.target.id)
+  const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
+  findMessage.starred = !findMessage.starred
+  this.setState({ state: newState })
+}
 
 
-  render() {
-    return (
-      <div className="App">
-        {(this.state.messages) ?
-          <React.Fragment>
-            <Toolbar messages={this.state.messages} />
-            <MessageList
-              messages={this.state.messages}
-              messageClick={this.messageClick}
-              checkboxClick={this.checkboxClick}
-              starMessage={this.starMessage}
-              markAsRead={this.markAsRead}
-              markAsUnread={this.markAsUnread} />
-          </React.Fragment> :
-          <Loading />
-        }
-      </div>
-    );
-  }
+render() {
+  return (
+    <div className="App">
+      {(this.state.messages) ?
+        <React.Fragment>
+          <Toolbar messages={this.state.messages} />
+          <MessageList
+            messages={this.state.messages}
+            messageClick={this.messageClick}
+            checkboxClick={this.checkboxClick}
+            starMessage={this.starMessage}
+            markAsRead={this.markAsRead}
+            markAsUnread={this.markAsUnread} />
+        </React.Fragment> :
+        <Loading />
+      }
+    </div>
+  );
+}
 }
 
 export default App;

@@ -4,7 +4,10 @@ import 'font-awesome/css/font-awesome.min.css'
 
 const Toolbar = (props) => {
   const unreadCount = (props.messages.filter(item => !item.read)).length
-  console.log(unreadCount)
+  const selectedCount = (props.messages.filter(item => item.selected)).length
+  const messageCount = (props.messages.filter(item => item)).length
+
+  console.log(messageCount)
 
 
   return (
@@ -13,7 +16,8 @@ const Toolbar = (props) => {
         <div class="col-md-12">
          {unreadCount > 0 ? <div><p class="pull-right"><span class="badge badge">{unreadCount}</span>unread messages</p></div> : ''}
           <button class="btn btn-default">
-            <i class="fa fa-check-square-o"></i>
+            {selectedCount === messageCount ? <i class="fa fa-check-square-o"></i> :
+              selectedCount > 0 ? <i class="fa fa-minus-square-o"></i> : <i class="fa fa-square-o"></i>}
           </button>
 
           <button class="btn btn-default">
