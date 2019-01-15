@@ -17,7 +17,7 @@ const Message = (props) => {
                     checked={`${message.selected ? 'checked' : ''}`} />
                 </div>
                 <div className="col-xs-2">
-                  <i className={`star fa ${message.starred ? 'fa-star' : 'fa-star-o'}`}></i>
+                  <i onClick={props.starMessage} id={message.id} className={`star fa ${message.starred ? 'fa-star' : 'fa-star-o'}`}></i>
                 </div>
               </div>
             </div>

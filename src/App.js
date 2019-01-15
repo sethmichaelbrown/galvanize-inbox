@@ -11,6 +11,7 @@ import './App.css';
 import Loading from './components/Loading'
 import MessageList from './components/MessageList'
 import Toolbar from './components//Toolbar'
+import { faCommentDollar } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -38,14 +39,22 @@ class App extends Component {
   }
 
   markAsUnead = (event) => {
-    
+
   }
 
   checkboxClick = (event) => {
     const newState = { ...this.state }
     const messageID = parseInt(event.target.id)
     const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
-    findMessage.selected = true
+    findMessage.selected = !findMessage.selected
+    this.setState({ state: newState })
+  }
+
+  starMessage = (event) => {
+    const newState = { ...this.state }
+    const messageID = parseInt(event.target.id)
+    const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
+    findMessage.starred = !findMessage.starred
     this.setState({ state: newState })
   }
 
@@ -60,7 +69,8 @@ class App extends Component {
               messages={this.state.messages}
               messageClick={this.messageClick}
               checkboxClick={this.checkboxClick}
-              markAsRead={this.markAsRead} 
+              starMessage={this.starMessage}
+              markAsRead={this.markAsRead}
               markAsUnread={this.markAsUnread} />
           </React.Fragment> :
           <Loading />

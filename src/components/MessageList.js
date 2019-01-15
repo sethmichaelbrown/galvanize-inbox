@@ -10,18 +10,16 @@ const MessageList = (props) => {
     <div className="MessageList">
       <div className="container">
         <h1>Message List</h1>
-          return (
-            <div className="mt-1">
-              <Message
-                messages={props.messages}
-                subject={props.subject}
-                messageClick={props.messageClick}
-                checkboxClick={props.checkboxClick}
-                id={count++}
-                key={key++} />
-            </div>
-          )
-        }
+        <div className="mt-1">
+          <Message
+            messages={props.messages}
+            subject={props.subject}
+            messageClick={props.messageClick}
+            checkboxClick={props.checkboxClick}
+            starMessage={props.starMessage}
+            id={count++}
+            key={key++} />
+        </div>
       </div>
     </div>
   )
