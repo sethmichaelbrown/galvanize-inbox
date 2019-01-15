@@ -2,11 +2,11 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 
-const ToolbarCompose = (props) => {
+const Toolbar = (props) => {
   const unreadCount = (props.messages.filter(item => !item.read)).length
 
   return (
-    <div className="ToolbarCompose container">
+    <div className="Toolbar container">
       <div className="row toolbar">
         <div className="col-md-12">
           <p className="pull-right">
@@ -48,4 +48,4 @@ const ToolbarCompose = (props) => {
   )
 }
 
-export default ToolbarCompose;
+export default Toolbar;
