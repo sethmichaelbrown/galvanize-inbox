@@ -2,6 +2,8 @@ import React from 'react'
 import '../App.css';
 
 const Message = (props) => {
+  const messageLabel = props.messages.map(message => message.labels)
+  const labelPerMessage = messageLabel.map(label => label)
 
   return (
     <div className="Message">
@@ -22,6 +24,7 @@ const Message = (props) => {
               </div>
             </div>
             <div className="col-xs-11" onClick={props.messageClick}>
+              {messageLabel ? <span class="label label-warning">dev</span> : ''}
               <a key={props.id} id={message.id} href="#">{message.subject}</a>
             </div>
           </div>

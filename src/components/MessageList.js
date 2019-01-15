@@ -2,7 +2,6 @@ import React from 'react'
 import Message from './Message'
 
 const MessageList = (props) => {
-  // console.log("!!", props.messages.map(item => item))
   let count = 1
   let key = 4999
 
