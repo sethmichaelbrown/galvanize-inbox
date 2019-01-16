@@ -112,13 +112,23 @@ class App extends Component {
     let newLabel = event.target.value
     const selected = newState.messages.filter(message => message.selected)
     const labels = selected.map(message => message.labels)
-    if(!labels.includes(newLabel)){
-       labels.map(message => message.push(newLabel))
+    if (!labels.includes(newLabel)) {
+      labels.map(message => message.push(newLabel))
     }
     this.setState(newState)
   }
 
   removeLabel = (event) => {
+    const newState = { ...this.state }
+    let labelToRemove = event.target.value
+    const selected = newState.messages.filter(message => message.selected).map(message => message.labels)
+    const labels = selected.map(label => label).filter(item => item.find(item => {
+      if (item === labelToRemove) {
+        console.log('to remove')
+      }
+    }))
+    console.log(labels)
+    console.log(labelToRemove)
 
   }
 
@@ -126,7 +136,7 @@ class App extends Component {
     const newState = { ...this.state }
     if (event.target.id === 'compose') {
       newState.composeView = true
-      
+
       this.setState(newState)
     }
   }
@@ -152,7 +162,7 @@ class App extends Component {
               markAsUnread={this.markAsUnread}
               addLabel={this.addLabel}
               removeLabel={this.removeLabel} />
-            {this.state.composeView ? <Compose sendMessage={this.sendMessage}/> : ''}
+            {this.state.composeView ? <Compose sendMessage={this.sendMessage} /> : ''}
             <MessageList
               messages={this.state.messages}
               messageClick={this.messageClick}
