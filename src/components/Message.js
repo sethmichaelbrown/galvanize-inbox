@@ -4,8 +4,8 @@ import '../App.css';
 const Message = (props) => {
   const devLabel = props.messages.filter(item => item.labels.includes('dev')).map(item => item.id)
   const personalLabel = props.messages.filter(item => item.labels.includes('personal')).map(item => item.id)
+  const gSchoolLabel = props.messages.filter(item => item.labels.includes('gSchool')).map(item => item.id)
 
-  console.log(devLabel)
 
 
   return (
@@ -30,6 +30,8 @@ const Message = (props) => {
               
               {devLabel.includes(message.id) ? <span class="label label-warning">dev</span> : ''}
               {personalLabel.includes(message.id) ? <span class="label label-warning">personal</span> : ''}
+              {gSchoolLabel.includes(message.id) ? <span class="label label-warning">personal</span> : ''}
+
         
               
               <a key={props.id} id={message.id} href="#">{message.subject}</a>
