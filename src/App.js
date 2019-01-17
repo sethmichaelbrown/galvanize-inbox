@@ -44,6 +44,21 @@ class App extends Component {
     })
   }
 
+  labelPatchServer = async (idArr, cmd, tf) => {
+    await fetch('http://localhost:8082/api/messages', {
+      method: 'PATCH',
+      headers: {
+        'Acawaitcept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "messageIds": idArr,
+        "command": cmd,
+        label: tf
+      })
+    })
+  }
+
   messageClick = (event) => {
     const newState = { ...this.state }
     const messageID = parseInt(event.target.id)
@@ -53,7 +68,6 @@ class App extends Component {
       findMessage.read = true
     }
     newState.displayBody = messageID
-    // console.log(newState.displayBody)
     this.patchServer([messageID], "read", true)
     this.setState(newState)
   }
@@ -73,7 +87,8 @@ class App extends Component {
 
     const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
     findMessage.starred = !findMessage.starred
-    this.patchServer([messageID], "star", findMessage.starred)
+    
+    this.patchServer([messageID], "star")
     this.setState(newState)
   }
 
@@ -113,12 +128,16 @@ class App extends Component {
 
   addLabel = (event) => {
     const newState = { ...this.state }
-    let newLabel = event.target.value
+    let label = event.target.value
     const selected = newState.messages.filter(message => message.selected)
+    const selectedIDs = selected.map(message => message.id)
     const labels = selected.map(message => message.labels)
-    if (!labels.includes(newLabel)) {
-      labels.map(message => message.push(newLabel))
+    
+    if (!labels.includes(label)) {
+      labels.map(message => message.push(label))
     }
+
+    this.labelPatchServer(selectedIDs, "addLabel", label)
     this.setState(newState)
   }
 
@@ -138,20 +157,23 @@ class App extends Component {
     console.log(newState)
     if (event.target.id === 'compose') {
       newState.composeView = true
-
       this.setState(newState)
     }
+    
     if(event.target.id === 'close'){
       newState.composeView = false
-
       this.setState(newState)
     }
   }
 
   sendMessage = (event) => {
     event.preventDefault()
-    console.log(event)
+    console.log(event.target)
+
+
+    // const newState = {...this.state}
     // newState.composeView = false
+    // this.setState(newState)
   }
 
   toTrash = (event) => {
