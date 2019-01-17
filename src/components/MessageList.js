@@ -9,16 +9,18 @@ const MessageList = (props) => {
     <div className="MessageList">
       <div className="container">
         <h1>Message List</h1>
-        <div className="mt-1">
-          <Message
-            displayBody={props.displayBody}
-            messages={props.messages}
-            subject={props.subject}
-            messageClick={props.messageClick}
-            checkboxClick={props.checkboxClick}
-            starMessage={props.starMessage}
-            id={count++}
-            key={key++} />
+        <div className="mt-1 list-group">
+          <li>
+            <Message
+              displayBody={props.displayBody}
+              messages={props.messages}
+              subject={props.subject}
+              messageClick={props.messageClick}
+              checkboxClick={props.checkboxClick}
+              starMessage={props.starMessage}
+              id={count++}
+              key={key++} />
+          </li>
         </div>
       </div>
     </div>

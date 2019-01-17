@@ -24,6 +24,7 @@ const Compose = (props) => {
             <div className="form-group">
                 <div className="col-sm-8 col-sm-offset-2">
                 <input type="submit" value="Send" className="btn btn-primary"/>
+                <input type="submit" value="Close" className="btn btn-secondary"/>
                 </div>
             </div>
         </form>

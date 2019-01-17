@@ -12,37 +12,37 @@ const Message = (props) => {
     <div className="Message">
       {props.messages.map(message => {
         return (
-          <React.Fragment>
-          <div className={`row message ${message.read ? 'read' : 'unread'} ${message.selected ? 'selected' : ''}`}>
-            <div className="col-xs-1">
-              <div className="row">
-                <div className="col-xs-2">
-                  < input type="checkbox"
-                    onClick={props.checkboxClick}
-                    id={message.id}
-                    checked={`${message.selected ? 'checked' : ''}`} />
-                </div>
-                <div className="col-xs-2">
-                  <i onClick={props.starMessage} id={message.id} className={`star fa ${message.starred ? 'fa-star' : 'fa-star-o'}`}></i>
+          <div className="mb-1">
+            <div className={`row message ${message.read ? 'read' : 'unread'} ${message.selected ? 'selected' : ''}`}>
+              <div className="col-xs-1">
+                <div className="row">
+                  <div className="col-xs-2">
+                    < input type="checkbox"
+                      onClick={props.checkboxClick}
+                      id={message.id}
+                      checked={`${message.selected ? 'checked' : ''}`} />
+                  </div>
+                  <div className="col-xs-2">
+                    <i onClick={props.starMessage} id={message.id} className={`star fa ${message.starred ? 'fa-star' : 'fa-star-o'}`}></i>
+                  </div>
                 </div>
               </div>
+              <div id={message.id} className="col-xs-11" onClick={props.messageClick}>
+
+                {devLabel.includes(message.id) ? <span class="label label-warning">dev</span> : ''}
+                {personalLabel.includes(message.id) ? <span class="label label-warning">personal</span> : ''}
+                {gSchoolLabel.includes(message.id) ? <span class="label label-warning">gSchool</span> : ''}
+
+
+
+                <a key={props.id} id={message.id} href="#">{message.subject}</a>
+              </div>
             </div>
-            <div id={message.id} className="col-xs-11" onClick={props.messageClick}>
 
-              {devLabel.includes(message.id) ? <span class="label label-warning">dev</span> : ''}
-              {personalLabel.includes(message.id) ? <span class="label label-warning">personal</span> : ''}
-              {gSchoolLabel.includes(message.id) ? <span class="label label-warning">gSchool</span> : ''}
-
-
-
-              <a key={props.id} id={message.id} href="#">{message.subject}</a>
-            </div>
+            {props.displayBody === message.id ? <div class="row message-body">
+              <div class="col-xs-11 col-xs-offset-1">{message.body}</div>
+            </div> : ''}
           </div>
-          
-          {props.displayBody === message.id ? <div class="row message-body">
-            <div class="col-xs-11 col-xs-offset-1">{message.body}</div>
-          </div> : ''}
-          </React.Fragment>
         )
       })}
 

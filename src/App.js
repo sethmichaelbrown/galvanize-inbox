@@ -75,7 +75,7 @@ class App extends Component {
     const newState = { ...this.state }
     const messageID = parseInt(event.target.id)
     let filteredItem = newState.messages.filter(item => item.id === messageID)[0]
-    if(!filteredItem.read){
+    if (!filteredItem.read) {
       filteredItem.read = true
     }
 
@@ -194,18 +194,25 @@ class App extends Component {
     let subject = event.target.subject.value
     let body = event.target.body.value
 
-    let newMessage = {
-      subject,
-      body,
-      read: false,
-      starred: false,
-      labels: [],
-    }
-    newState.messages.push(newMessage)
+    if (body && subject) {
+      let newMessage = {
+        subject,
+        body,
+        read: false,
+        starred: false,
+        labels: [],
+      }
+      newState.messages.push(newMessage)
 
-    this.postServer(subject, body)
-    newState.composeView = false
-    this.setState(newState)
+      this.postServer(subject, body)
+      newState.composeView = false
+      this.setState(newState)
+    }
+    else{
+      newState.composeView = false
+      this.setState(newState)
+    }
+
   }
 
   toTrash = (event) => {
