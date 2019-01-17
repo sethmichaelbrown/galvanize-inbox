@@ -14,8 +14,6 @@ import Toolbar from './components/Toolbar'
 import Compose from './components/Compose'
 
 
-
-
 class App extends Component {
 
   state = {
@@ -59,14 +57,30 @@ class App extends Component {
     })
   }
 
+  postServer = async (subject, body) => {
+    await fetch('http://localhost:8082/api/messages', {
+      method: 'POST',
+      headers: {
+        'Acawaitcept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        subject,
+        body
+      })
+    })
+  }
+
   messageClick = (event) => {
     const newState = { ...this.state }
     const messageID = parseInt(event.target.id)
 
-    const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
-    if (!findMessage.read) {
-      findMessage.read = true
+    // console.log(typeof messageID)
+    let filteredItem = newState.messages.filter(item => item.id === messageID)[0]
+    if(!filteredItem.read){
+      filteredItem.read = true
     }
+
     newState.displayBody = messageID
     this.patchServer([messageID], "read", true)
     this.setState(newState)
@@ -150,14 +164,14 @@ class App extends Component {
     let index
     let result = []
 
-      labels.map(item => {
-        item.filter(item2 => { 
-          if(item2 === label){
-            index = item.indexOf(item2)
-            result = item.splice(index, index+1)
-          }
-        })
+    labels.map(item => {
+      item.filter(item2 => {
+        if (item2 === label) {
+          index = item.indexOf(item2)
+          result = item.splice(index, index + 1)
+        }
       })
+    })
 
     this.labelPatchServer(selectedIDs, "removeLabel", label)
     this.setState(newState)
@@ -179,15 +193,22 @@ class App extends Component {
   }
 
   sendMessage = (event) => {
-    event.preventDefault()
-    console.log(event.target.body.value)
-    console.log(event.target.body.value)
+    const newState = { ...this.state }
+    let subject = event.target.subject.value
+    let body = event.target.body.value
 
+    let newMessage = {
+      subject,
+      body,
+      read: false,
+      starred: false,
+      labels: [],
+    }
+    newState.messages.push(newMessage)
 
-
-    // const newState = {...this.state}
-    // newState.composeView = false
-    // this.setState(newState)
+    this.postServer(subject, body)
+    newState.composeView = false
+    this.setState(newState)
   }
 
   toTrash = (event) => {
@@ -201,8 +222,6 @@ class App extends Component {
       this.setState(newState)
     }
   }
-
-
 
   render() {
     return (

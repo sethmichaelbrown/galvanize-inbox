@@ -11,13 +11,14 @@ const Message = (props) => {
   return (
     <div className="Message">
       {props.messages.map(message => {
+        console.log(message.id)
         return (
           <React.Fragment>
           <div className={`row message ${message.read ? 'read' : 'unread'} ${message.selected ? 'selected' : ''}`}>
             <div className="col-xs-1">
               <div className="row">
                 <div className="col-xs-2">
-                  < input type="checkbox" o
+                  < input type="checkbox"
                     onClick={props.checkboxClick}
                     id={message.id}
                     checked={`${message.selected ? 'checked' : ''}`} />
@@ -27,7 +28,7 @@ const Message = (props) => {
                 </div>
               </div>
             </div>
-            <div className="col-xs-11" onClick={props.messageClick}>
+            <div id={message.id} className="col-xs-11" onClick={props.messageClick}>
 
               {devLabel.includes(message.id) ? <span class="label label-warning">dev</span> : ''}
               {personalLabel.includes(message.id) ? <span class="label label-warning">personal</span> : ''}
