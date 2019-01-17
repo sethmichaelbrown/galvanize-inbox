@@ -135,8 +135,14 @@ class App extends Component {
 
   handleCompose = (event) => {
     const newState = { ...this.state }
+    console.log(newState)
     if (event.target.id === 'compose') {
       newState.composeView = true
+
+      this.setState(newState)
+    }
+    if(event.target.id === 'close'){
+      newState.composeView = false
 
       this.setState(newState)
     }
@@ -168,6 +174,7 @@ class App extends Component {
         {(this.state.messages) ?
           <React.Fragment>
             <Toolbar
+              composeView={this.state.composeView}
               messages={this.state.messages}
               selectAll={this.selectAll}
               handleCompose={this.handleCompose}

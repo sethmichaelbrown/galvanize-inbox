@@ -38,7 +38,7 @@ const Message = (props) => {
               <a key={props.id} id={message.id} href="#">{message.subject}</a>
             </div>
           </div>
-          {console.log(props)}
+          
           {props.displayBody === message.id ? <div class="row message-body">
             <div class="col-xs-11 col-xs-offset-1">{message.body}</div>
           </div> : ''}

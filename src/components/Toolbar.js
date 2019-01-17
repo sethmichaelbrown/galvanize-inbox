@@ -13,7 +13,8 @@ const Toolbar = (props) => {
       <div class="row toolbar">
         <div class="col-md-12">
           {unreadCount > 0 ? <div><p class="pull-right"><span class="badge badge">{unreadCount}</span>unread messages</p></div> : ''}
-          {selectedCount === 0 ?  <a class="btn btn-danger"><i class="fa fa-plus" id='compose' onClick={props.handleCompose}></i></a> : ''}
+          {console.log(props)}
+          {selectedCount === 0 ?  <a class="btn btn-danger"><i class={!props.composeView ? "fa fa-plus" : 'fa fa-minus'} id={!props.composeView ? "compose" : 'close'} onClick={props.handleCompose}></i></a> : ''}
           <button class="btn btn-default" id="select-all" onClick={props.selectAll}>
             {selectedCount === messageCount ? <i class="fa fa-check-square-o"></i> :
               selectedCount > 0 ? <i class="fa fa-minus-square-o"></i> : <i class="fa fa-square-o"></i>}
