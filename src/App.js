@@ -20,6 +20,7 @@ class App extends Component {
 
   state = {
     composeView: false,
+    displayBody: null
   }
 
   componentDidMount = async () => {
@@ -28,7 +29,7 @@ class App extends Component {
     this.setState({ messages: json })
   }
 
-  patchServer = async (idArr, cmd, read) => {
+  patchServer = async (idArr, cmd, tf) => {
     await fetch('http://localhost:8082/api/messages', {
       method: 'PATCH',
       headers: {
@@ -38,19 +39,23 @@ class App extends Component {
       body: JSON.stringify({
         "messageIds": idArr,
         "command": cmd,
-        "read": read
+        [cmd]: tf
       })
     })
   }
 
   messageClick = (event) => {
-    const newState = { ...this.state }
+    const newState = { ...this.state}
     const messageID = parseInt(event.target.id)
 
     const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
-    findMessage.read = true
+    if(!findMessage.read){
+      findMessage.read = true
+    }
+    newState.displayBody = messageID
+    // console.log(newState.displayBody)
     this.patchServer([messageID], "read", true)
-    this.setState({ state: newState })
+    this.setState(newState)
   }
 
   checkboxClick = (event) => {
@@ -59,8 +64,7 @@ class App extends Component {
 
     const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
     findMessage.selected = !findMessage.selected
-    // this.patchServer([messageID], "selected")
-    this.setState({ state: newState })
+    this.setState(newState)
   }
 
   starMessage = (event) => {
@@ -69,8 +73,8 @@ class App extends Component {
 
     const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
     findMessage.starred = !findMessage.starred
-    // this.patchServer([messageID], "starred")
-    this.setState({ state: newState })
+    this.patchServer([messageID], "star", findMessage.starred)
+    this.setState(newState)
   }
 
   selectAll = (event) => {
@@ -122,14 +126,11 @@ class App extends Component {
     const newState = { ...this.state }
     let labelToRemove = event.target.value
     const selected = newState.messages.filter(message => message.selected).map(message => message.labels)
-    const labels = selected.map(label => label).filter(item => item.find(item => {
-      if (item === labelToRemove) {
-        console.log('to remove')
-      }
-    }))
-    console.log(labels)
-    console.log(labelToRemove)
-
+    // selected.forEach(item => {
+    //   if(item.includes(labelToRemove){
+    //     patchServer()
+    //   })
+    // })
   }
 
   handleCompose = (event) => {
@@ -164,6 +165,7 @@ class App extends Component {
               removeLabel={this.removeLabel} />
             {this.state.composeView ? <Compose sendMessage={this.sendMessage} /> : ''}
             <MessageList
+              displayBody={this.state.displayBody}
               messages={this.state.messages}
               messageClick={this.messageClick}
               checkboxClick={this.checkboxClick}

@@ -72,3 +72,16 @@ footer.spacer {
 .fa-close {
   cursor: pointer;
 }
+
+body{
+  background-image: url("./frank-mckenna-150516-unsplash.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.message{
+  border: solid;
+  border-width: thin;
+  border-color: grey;
+  background-color: #ccc;
+}

@@ -11,6 +11,7 @@ const MessageList = (props) => {
         <h1>Message List</h1>
         <div className="mt-1">
           <Message
+            displayBody={props.displayBody}
             messages={props.messages}
             subject={props.subject}
             messageClick={props.messageClick}

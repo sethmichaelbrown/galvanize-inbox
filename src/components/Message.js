@@ -12,6 +12,7 @@ const Message = (props) => {
     <div className="Message">
       {props.messages.map(message => {
         return (
+          <React.Fragment>
           <div className={`row message ${message.read ? 'read' : 'unread'} ${message.selected ? 'selected' : ''}`}>
             <div className="col-xs-1">
               <div className="row">
@@ -27,16 +28,21 @@ const Message = (props) => {
               </div>
             </div>
             <div className="col-xs-11" onClick={props.messageClick}>
-              
+
               {devLabel.includes(message.id) ? <span class="label label-warning">dev</span> : ''}
               {personalLabel.includes(message.id) ? <span class="label label-warning">personal</span> : ''}
               {gSchoolLabel.includes(message.id) ? <span class="label label-warning">gSchool</span> : ''}
 
-        
-              
+
+
               <a key={props.id} id={message.id} href="#">{message.subject}</a>
             </div>
           </div>
+          {console.log(props)}
+          {props.displayBody === message.id ? <div class="row message-body">
+            <div class="col-xs-11 col-xs-offset-1">{message.body}</div>
+          </div> : ''}
+          </React.Fragment>
         )
       })}
 
