@@ -45,11 +45,11 @@ class App extends Component {
   }
 
   messageClick = (event) => {
-    const newState = { ...this.state}
+    const newState = { ...this.state }
     const messageID = parseInt(event.target.id)
 
     const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
-    if(!findMessage.read){
+    if (!findMessage.read) {
       findMessage.read = true
     }
     newState.displayBody = messageID
@@ -148,6 +148,18 @@ class App extends Component {
     // newState.composeView = false
   }
 
+  toTrash = (event) => {
+    if (event.target.id === 'trash') {
+      const newState = { ...this.state }
+      const selectedIDs = newState.messages.filter(message => message.selected).map(message => message.id)
+      let nonSelected = newState.messages.filter(message => !message.selected)
+      newState.messages = nonSelected
+      
+      this.patchServer(selectedIDs, "delete")
+      this.setState(newState)
+    }
+  }
+
 
 
   render() {
@@ -162,7 +174,8 @@ class App extends Component {
               markAsRead={this.markAsRead}
               markAsUnread={this.markAsUnread}
               addLabel={this.addLabel}
-              removeLabel={this.removeLabel} />
+              removeLabel={this.removeLabel}
+              toTrash={this.toTrash} />
             {this.state.composeView ? <Compose sendMessage={this.sendMessage} /> : ''}
             <MessageList
               displayBody={this.state.displayBody}

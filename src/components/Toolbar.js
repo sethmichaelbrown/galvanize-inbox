@@ -48,7 +48,7 @@ const Toolbar = (props) => {
             <option value="gschool">gschool</option>
           </select>}
 
-          {<button class="btn btn-default" disabled={`${selectedCount > 0 ? '' : 'disabled'}`}>
+          {<button onClick={props.toTrash} id='trash' class="btn btn-default" disabled={`${selectedCount > 0 ? '' : 'disabled'}`}>
             <i class="fa fa-trash-o"></i>
           </button>}
         </div>
