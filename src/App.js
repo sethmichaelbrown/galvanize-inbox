@@ -87,7 +87,7 @@ class App extends Component {
 
     const findMessage = this.state.messages.filter(item => (item.id === messageID))[0]
     findMessage.starred = !findMessage.starred
-    
+
     this.patchServer([messageID], "star")
     this.setState(newState)
   }
@@ -132,7 +132,7 @@ class App extends Component {
     const selected = newState.messages.filter(message => message.selected)
     const selectedIDs = selected.map(message => message.id)
     const labels = selected.map(message => message.labels)
-    
+
     if (!labels.includes(label)) {
       labels.map(message => message.push(label))
     }
@@ -143,13 +143,25 @@ class App extends Component {
 
   removeLabel = (event) => {
     const newState = { ...this.state }
-    let labelToRemove = event.target.value
-    const selected = newState.messages.filter(message => message.selected).map(message => message.labels)
-    // selected.forEach(item => {
-    //   if(item.includes(labelToRemove){
-    //     patchServer()
-    //   })
-    // })
+    let label = event.target.value
+    const selected = newState.messages.filter(message => message.selected)
+    const selectedIDs = selected.map(message => message.id)
+    const labels = selected.map(message => message.labels)
+    let index
+    let result = []
+
+      labels.map(item => {
+        item.filter(item2 => { 
+          if(item2 === label){
+            index = item.indexOf(item2)
+            result = item.splice(index, index+1)
+          }
+        })
+      })
+
+    this.labelPatchServer(selectedIDs, "removeLabel", label)
+    this.setState(newState)
+
   }
 
   handleCompose = (event) => {
@@ -159,8 +171,8 @@ class App extends Component {
       newState.composeView = true
       this.setState(newState)
     }
-    
-    if(event.target.id === 'close'){
+
+    if (event.target.id === 'close') {
       newState.composeView = false
       this.setState(newState)
     }
@@ -168,7 +180,9 @@ class App extends Component {
 
   sendMessage = (event) => {
     event.preventDefault()
-    console.log(event.target)
+    console.log(event.target.body.value)
+    console.log(event.target.body.value)
+
 
 
     // const newState = {...this.state}
@@ -182,7 +196,7 @@ class App extends Component {
       const selectedIDs = newState.messages.filter(message => message.selected).map(message => message.id)
       let nonSelected = newState.messages.filter(message => !message.selected)
       newState.messages = nonSelected
-      
+
       this.patchServer(selectedIDs, "delete")
       this.setState(newState)
     }
