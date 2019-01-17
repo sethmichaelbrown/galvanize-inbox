@@ -74,8 +74,6 @@ class App extends Component {
   messageClick = (event) => {
     const newState = { ...this.state }
     const messageID = parseInt(event.target.id)
-
-    // console.log(typeof messageID)
     let filteredItem = newState.messages.filter(item => item.id === messageID)[0]
     if(!filteredItem.read){
       filteredItem.read = true
@@ -180,7 +178,6 @@ class App extends Component {
 
   handleCompose = (event) => {
     const newState = { ...this.state }
-    console.log(newState)
     if (event.target.id === 'compose') {
       newState.composeView = true
       this.setState(newState)

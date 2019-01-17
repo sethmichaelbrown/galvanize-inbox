@@ -11,7 +11,6 @@ const Message = (props) => {
   return (
     <div className="Message">
       {props.messages.map(message => {
-        console.log(message.id)
         return (
           <React.Fragment>
           <div className={`row message ${message.read ? 'read' : 'unread'} ${message.selected ? 'selected' : ''}`}>
